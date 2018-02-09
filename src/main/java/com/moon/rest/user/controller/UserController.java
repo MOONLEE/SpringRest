@@ -27,6 +27,7 @@ public class UserController {
 	public User getUserInfo(@PathVariable("id") @NotNull String id) {
 		springRestService.getUserInfo(id);
 		
+		// Test Error 
 		throw new IllegalArgumentException();
 	}
 	
