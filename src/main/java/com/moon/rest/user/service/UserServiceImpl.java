@@ -8,9 +8,9 @@ import org.springframework.util.ObjectUtils;
 
 import com.moon.rest.main.exception.UserException;
 import com.moon.rest.main.utiil.CryptUtil;
-import com.moon.rest.user.code.UserStatus;
 import com.moon.rest.user.domain.User;
 import com.moon.rest.user.repository.UserRepository;
+import com.moon.rest.user.status.UserStatus;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,14 +27,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserStatus postUserInfo(User user) {
+		if (!ObjectUtils.isEmpty(user.getId())) {
+			throw new UserException(UserStatus.INVALID_ID);
+		}
+		
+		
+		User existUser = userRepository.findByEmail(user.getEmail());
+		if (!ObjectUtils.isEmpty(existUser)) {
+			throw new UserException(UserStatus.EXIST_USER);
+		}
+		
 		try {
-			User existUser = userRepository.findByEmail(user.getEmail());
-			if (!ObjectUtils.isEmpty(existUser)) {
-				throw new UserException(UserStatus.EXIST_USER);
-			}
-
 			user.setPassword(CryptUtil.getSha512Encrpt(user.getPassword()));
-			CryptUtil.getSha512Encrpt(null);
 			
 			userRepository.save(user);
 		
@@ -43,7 +47,7 @@ public class UserServiceImpl implements UserService {
 			throw new UserException(UserStatus.ERROR);
 		}
 		
-		return UserStatus.CREAT_SUCCESS;
+		return UserStatus.CREATE_SUCCESS;
 	}
 
 	@Override
@@ -53,8 +57,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String deleteUserInfo(User user) {
+		
+		User existUser = userRepository.findByEmail(user.getEmail());
+		
+		if (ObjectUtils.isEmpty(existUser)) {
+			throw new UserException(UserStatus.NOTEXIST_USER);
+		}
+		
 		userRepository.delete(user);
-		return user.getId(); 
+		
+		return user.getEmail(); 
 	}
 
 }

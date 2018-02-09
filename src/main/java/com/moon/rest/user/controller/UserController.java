@@ -3,15 +3,16 @@ package com.moon.rest.user.controller;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.moon.rest.user.code.UserStatus;
 import com.moon.rest.user.domain.User;
 import com.moon.rest.user.service.UserService;
+import com.moon.rest.user.status.UserStatus;
 
 @RestController()
 @RequestMapping("/api/user")

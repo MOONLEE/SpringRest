@@ -1,7 +1,7 @@
 package com.moon.rest.user.service;
 
-import com.moon.rest.user.code.UserStatus;
 import com.moon.rest.user.domain.User;
+import com.moon.rest.user.status.UserStatus;
 
 public interface UserService {
 
