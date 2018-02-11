@@ -21,11 +21,21 @@ public class SinglePageAppConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+		
+		// static resource Handler
 		registry
 			.addResourceHandler("/**")
 			.addResourceLocations("classpath:/static/")
 			.resourceChain(false)
 			.addResolver(new PushStateResourceResolver());
+		
+		
+		// rest docs resource Handler
+		registry
+			.addResourceHandler("/rest/**")
+			.addResourceLocations("classpath:/templates/rest/");
+				
 	}
 
 	
