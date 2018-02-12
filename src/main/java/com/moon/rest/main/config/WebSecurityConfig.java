@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/css/**", "/js/**", "/images/**", "/resources/**", "/webjars/**").permitAll()
 		.and()
 			.authorizeRequests()
-			.antMatchers("/", "/rest").permitAll()
+			.antMatchers("/").permitAll()
 		.and()
 			.sessionManagement().invalidSessionUrl("/");
 	}

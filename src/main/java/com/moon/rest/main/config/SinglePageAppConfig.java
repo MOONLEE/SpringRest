@@ -31,10 +31,6 @@ public class SinglePageAppConfig extends WebMvcConfigurerAdapter {
 			.addResolver(new PushStateResourceResolver());
 		
 		
-		// rest docs resource Handler
-		registry
-			.addResourceHandler("/rest/**")
-			.addResourceLocations("classpath:/templates/rest/");
 				
 	}
 
